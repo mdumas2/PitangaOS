@@ -3,21 +3,22 @@
 #include "notifications/notification.hpp"
 #include "notifications/observer.hpp"
 
-template<typename Observer>
+template <typename Observer>
 struct GetObserverRegistrations {
-    using type = decltype(Observer::registrations());
+  using type = decltype(Observer::registrations());
 };
 
-template<typename... Observers>
+template <typename... Observers>
 struct CollectRegistrations;
 
-template<typename Observer, typename... Rest>
+template <typename Observer, typename... Rest>
 struct CollectRegistrations<Observer, Rest...> {
-    using type = typename ConcatTypeLists<typename GetObserverRegistrations<Observer>::type,
-                                          typename CollectRegistrations<Rest...>::type>::type;
+  using type = typename ConcatTypeLists<
+      typename GetObserverRegistrations<Observer>::type,
+      typename CollectRegistrations<Rest...>::type>::type;
 };
 
-template<>
+template <>
 struct CollectRegistrations<> {
-    using type = TypeList<>;
+  using type = TypeList<>;
 };
