@@ -1,8 +1,15 @@
 #pragma once
 
 #include "drivers/serial.hpp"
-#include "manager/collect_registrations.hpp"
-#include "manager/interrupt_manager.hpp"
+#include "drivers/led.hpp"
+#include "manager/task_manager.hpp"
 
-using RegistrationList = typename CollectRegistrations<Serial>::type;
-using SystemInterruptManager = InterruptManager<RegistrationList>;
+namespace System {
+Driver::Led led;
+Driver::Serial serial;
+
+App::TaskManager<Driver::Led, Driver::Serial>& GetTaskManager() {
+    static App::TaskManager<Driver::Led, Driver::Serial> taskManager{led, serial};
+    return taskManager;
+}
+}

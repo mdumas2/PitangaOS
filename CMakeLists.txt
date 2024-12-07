@@ -16,6 +16,10 @@ add_executable(PitangaOS
     include/manager/interrupt_manager.hpp
     include/manager/collect_registrations.hpp
     include/drivers/serial.hpp
+    include/drivers/led.hpp
+    include/manager/task_manager.hpp
+    include/task/task.hpp
+    include/config/system_config_interrupt.hpp
 )
 
 include(GNUInstallDirs)

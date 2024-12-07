@@ -2,9 +2,13 @@
 #include "config/system_config.hpp"
 
 int main() {
-    // Use the predefined SystemInterruptManager
+    uint32_t iteration = 0;
+    System::GetTaskManager().Bootstrap();
+    System::GetTaskManager().Setup();
     SystemInterruptManager::registerNotification(NotificationType::MESSAGE_ARRIVED);
-    SystemInterruptManager::notifyAll();
-
+    while (iteration < 10) {
+        System::GetTaskManager().Loop();
+        iteration++;
+    }
     return 0;
 }

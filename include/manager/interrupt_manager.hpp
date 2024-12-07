@@ -4,9 +4,8 @@
 #include "notifications/notification.hpp"
 #include "notifications/observer.hpp"
 #include "manager/collect_registrations.hpp"
-#include "config/system_config.hpp"
 
-template<typename RegistrationList, std::size_t MaxObservers = 10, std::size_t MaxNotifications = 10>
+template<typename RegistrationList, std::size_t MaxNotifications = 10>
 class InterruptManager {
 private:
     static inline std::array<NotificationType, MaxNotifications> pendingNotifications{};
@@ -36,6 +35,7 @@ private:
                 DerivedObserver<typename Registration::Observer>::instance().notify(Registration::NType);
             }
         }
+        notificationCount = 0;
     }
 
     template<typename Observer>
